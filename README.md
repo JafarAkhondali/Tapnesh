@@ -1,2 +1,3 @@
-# imgoptimizer
-Just a super simple to optimize png and jpeg images using famous tools
+# Tapnesh
+Super simple image optimizer for png and jpeg format using third-party library
+
