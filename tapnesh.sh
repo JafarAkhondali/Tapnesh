@@ -212,38 +212,43 @@ log (){
 }
 
 PREFIX="tapnesh_"
+
 if [[ -f $_arg_path ]]; then #Check if path is a file
-	log "[L] It's a file"
 	IMG="$_arg_path"
+	FILE_FULL_PATH=$(readlink -f "$_arg_path")
+	log "[L] Processing $FILE_FULL_PATH"
 	#Find file extension base on magic number, not name since sometimes images get saved with wrong extensions
-	MIMETYPE=$(file $IMG --mime-type -b)
+	MIMETYPE=$(file "$IMG" --mime-type -b)
 	if [[ $MIMETYPE == "image/jpeg" ]]; then
 		log "[L] jpeg file"
 		OPTIONS="--strip-all -m$_arg_quality "
 		if [[ $_arg_keep == "on" ]]; then #Create e forced backup if they wanna keep old files
 			log "[L] backing up ..."
-			/bin/cp -f "$IMG" $(dirname "$IMG")/$PREFIX$(basename "$IMG")
+			/bin/cp -f "$IMG" "$(dirname $IMG)/$PREFIX$(basename $IMG) "
 		fi
 		sh -c "/usr/bin/jpegoptim $OPTIONS $IMG"
 	elif [[ $MIMETYPE == "image/png" ]]; then
-		log "[L] png file ..."
+		log "[L] Png file ..."
 		OPTIONS="--strip --speed 1 -f --quality $_arg_quality-$_arg_quality"
 		if [[ $_arg_keep == "on" ]]; then
-			log "[L] backing up..."
-			OPTIONS="$OPTIONS --output $(dirname $IMG)/$PREFIX$(basename $IMG)"
+			log "[L] Backing up..."
+			OPTIONS="$OPTIONS --output '$(dirname "$IMG")/$PREFIX$(basename "$IMG")' "
 		else
-			OPTIONS="$OPTIONS --output $(dirname $IMG)/$(basename $IMG)"
+			OPTIONS="$OPTIONS --output '$(dirname "$IMG")/$(basename "$IMG")' "
 		fi
-		log "[L] compressing"
-		#log "[L] Final command: /usr/bin/pngquant $OPTIONS $IMG"
-		sh -c "/usr/bin/pngquant $OPTIONS $IMG"
+		log "[L] Compressing"
+		sh -c "/usr/bin/pngquant $OPTIONS '$IMG'"
+	else
+		echo "[E] Invalid image type !"
 	fi
+
 	log "[L] Done image"
 elif [[ -d $_arg_path ]]; then
 	#User wants to optimize a directory
 	#Check if he/she wants recursive option
 
-
+	TIME_BEFORE=$(date +%s.%N)
+	SIZE_BEFORE=$(du $_arg_path -s | cut -f1)
 	FIND_OPTIONS=" -iregex '.*\.\(jpg\|png\|jpeg\)$' "
 
 	if [[ $_arg_recursive == "off" ]]; then
@@ -265,6 +270,18 @@ elif [[ -d $_arg_path ]]; then
 	echo "[*] Finding images and processing in parallel at same time..."
 	sh -c "$FIND_CMD | /usr/bin/parallel $PARALLEL_OPTIONS /usr/local/bin/tapnesh $TAPNESH_OPTIONS -p {}"
 	log "[L] Compressing directory has been finished!"
+	TIME_AFTER=$(date +%s.%N)
+
+	TOTAL_TIME=$(awk -v item=$TIME_AFTER -v total=$TIME_BEFORE 'BEGIN { printf "%.3f\n", item - total }')
+
+	SIZE_AFTER=$(du $_arg_path -s | cut -f1)
+	OPT_PERCENT=$(awk -v item=$SIZE_AFTER -v total=$SIZE_BEFORE 'BEGIN { printf "%.3f\n", 100 * item / total }')
+
+
+	echo "[*] Processing time: ${TOTAL_TIME}s"
+	if [[ $_arg_keep == "off" ]]; then
+		echo "[*] Size Before:${SIZE_BEFORE}kb, After:${SIZE_AFTER}kb  ($OPT_PERCENT% Size decreasing)"
+	fi
 fi
 
 # ] <-- needed because of Argbash
