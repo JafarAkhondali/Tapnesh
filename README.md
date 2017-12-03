@@ -1,7 +1,6 @@
 # Tapnesh
 Simple parallel wrapper image optimizer for png and jpeg formats using third-party libraries
 
-------
 
 Installation
 ===
@@ -22,9 +21,9 @@ Optimize whole directory with 85% of quality
 
 
 Optimize whole directory and keep old files with 85% of quality    
-`tapnesh -p mydir -R -q 85`
+`tapnesh -p mydir -R -q 85 -k `
 
-Optimize image and keep old file
+Optimize image and keep old file     
 `tapnesh -p img.jpg -k `
 
 
