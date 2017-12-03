@@ -224,7 +224,7 @@ if [[ -f $_arg_path ]]; then #Check if path is a file
 		OPTIONS="--strip-all -m$_arg_quality "
 		if [[ $_arg_keep == "on" ]]; then #Create e forced backup if they wanna keep old files
 			log "[L] backing up ..."
-			/bin/cp -f "$IMG" "$(dirname $IMG)/$PREFIX$(basename $IMG) "
+			/bin/cp -f "$IMG" "$(dirname $IMG)/$PREFIX$(basename $IMG)"
 		fi
 		sh -c "/usr/bin/jpegoptim $OPTIONS $IMG"
 	elif [[ $MIMETYPE == "image/png" ]]; then
@@ -254,7 +254,7 @@ elif [[ -d $_arg_path ]]; then
 	if [[ $_arg_recursive == "off" ]]; then
 		FIND_OPTIONS="-maxdepth 1 $FIND_OPTIONS "
 	fi
-	FIND_CMD="find $_arg_path $FIND_OPTIONS"
+	FIND_CMD="find "$_arg_path" $FIND_OPTIONS"
 
 	PARALLEL_OPTIONS=" --no-notice --jobs 0 "
 

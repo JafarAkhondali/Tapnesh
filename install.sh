@@ -51,7 +51,9 @@ fi
 
 git clone https://github.com/JafarAkhondali/Tapnesh.git /tmp/tapnesh
 cd /tmp/tapnesh
-chmod +x ./tapnesh.sh
+chmod +x /usr/local/bin/tapnesh
 sudo /usr/bin/cp ./tapnesh.sh /usr/local/bin/tapnesh -f
+cd /tmp
+rm -rf /tmp/tapnesh
 echo "Installation complete!"
 tapnesh -h
