@@ -8,6 +8,16 @@ Just run this in your terminal
 `curl -Ss https://raw.githubusercontent.com/JafarAkhondali/Tapnesh/master/install.sh | bash`
 
 
+Dependencies
+---
+```
+pngquant
+parallel
+jpegoptim
+```
+
+
+
 Examples
 ---
 Optimize single image   
