@@ -16,6 +16,15 @@ parallel
 jpegoptim
 ```
 
+Demo
+---
+
+Before Optimization ( Size: 4.1m )
+![Before](https://user-images.githubusercontent.com/11364402/49339239-3e67d000-f644-11e8-91b8-5985b66880d0.jpg)
+
+
+After Optimization ( `-q 45` Size: 1014kb )
+![After](https://user-images.githubusercontent.com/11364402/49339240-3e67d000-f644-11e8-9793-d609f6f1fb42.jpg)
 
 
 Examples
