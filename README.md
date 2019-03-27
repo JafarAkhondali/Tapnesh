@@ -1,6 +1,6 @@
 # Tapnesh
-Simple parallel wrapper image optimizer for png and jpeg formats using third-party libraries
-
+Tapnesh will optimize your images in parallel easily and efficiently!
+Tapnesh is only a wrapper to optimize images using `jpegoptim` for jpe?g and `pngquant` for png files in parallel using `parallel` package.
 
 Installation
 ===
