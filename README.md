@@ -2,7 +2,7 @@
     :sparkles: Tapnesh :sparkles:
 </h1>
 
-[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)   Tapnesh is a CLI bash script which will optimize all your images in parallel easily and efficiently!   
+[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/davidsonfellipe/awesome-wpo/)   Tapnesh is a CLI bash script which will optimize all your images in parallel easily and efficiently!   
 You can use it on a single image or specify a whole directory.
 
 Demo
