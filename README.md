@@ -70,7 +70,7 @@ else: just copy the `tapnesh.sh` to some executable path
 
 Community
 ===
-:robot: TapneshBot:   
+:robot: [TapneshBot](https://github.com/AlirezaKm/TapneshBot):   
 A dockerized telegram bot which can optimize your images using telegram messenger.
 [@tapneshbot](http://t.me/tapneshbot)
 
