@@ -213,7 +213,7 @@ if [[ -f $_arg_path ]]; then #Check if path is a file
 		sh -c "/usr/bin/jpegoptim $OPTIONS '$IMG'"
 	elif [[ $MIMETYPE == "image/png" ]]; then
 		log "[L] Png file ..."
-		OPTIONS="--strip --speed 1 -f --quality $_arg_quality-$_arg_quality"
+		OPTIONS="--strip --speed 1 -f --quality $_arg_quality-$_arg_quality --skip-if-larger"
 		if [[ $_arg_keep == "on" ]]; then
 			log "[L] Backing up..."
 			OPTIONS="$OPTIONS --output '$(dirname "$IMG")/$PREFIX$(basename "$IMG")' "
