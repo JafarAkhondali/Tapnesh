@@ -68,7 +68,11 @@ If you trust me, just run this in your terminal
 else: just copy the `tapnesh.sh` to some executable path  
 
 
-
+Community
+===
+:robot: TapneshBot:   
+A dockerized telegram bot which can optimize your images using telegram messenger.
+[@tapneshbot](http://t.me/tapneshbot)
 
 Dependencies
 ---
