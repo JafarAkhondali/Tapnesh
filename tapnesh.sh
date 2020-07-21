@@ -48,7 +48,7 @@ print_help()
 	printf '%s\n' "Tapnesh is wrapper for image optimizers, It simply lets you optimize images in directory(ies) or single images in parallel"
 	printf 'Usage: %s [-q|--quality <arg>] [-R|--(no-)recursive] [-v|--(no-)verbose] [-k|--(no-)keep] [-h|--help] <path>\n' "$0"
 	printf '\t%s\n' "<path>: Path to directory or image for optimization"
-	printf '\t%s\n' "-q, --quality: Sets quality for optimized images, can be a value from 1 to 100. (100 means lossless optimization) (default: '85')"
+	printf '\t%s\n' "-q, --quality: Sets quality for optimized images, can be a value from 1 to 100. (100 means lossless optimization) (default: '80')"
 	printf '\t%s\n' "-R, --recursive, --no-recursive: Do recursive (off by default)"
 	printf '\t%s\n' "-v, --verbose, --no-verbose: Be verbose (off by default)"
 	printf '\t%s\n' "-k, --keep, --no-keep: Keep old files (off by default)"

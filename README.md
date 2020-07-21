@@ -1,11 +1,73 @@
-# Tapnesh
-Tapnesh will optimize your images in parallel easily and efficiently!
-Tapnesh is only a wrapper to optimize images using `jpegoptim` for jpe?g and `pngquant` for png files in parallel using `parallel` package.
+<h1 align=center > 
+    :sparkles: Tapnesh :sparkles:
+</h1>
+Tapnesh is a CLI bash script which will optimize all your images in parallel easily and efficiently!
+You can use it on a single image or specify a whole directory.
 
-Installation
+Demo
+---
+Image Size: 1920x1080  
+:star: Before => Original size: `863kb`
+![before](https://user-images.githubusercontent.com/11364402/88002052-d581e400-cb16-11ea-94b2-8d369b60d5fc.jpg)
+
+:star: After  => Optimized Size: `304kb` (64.85% size decreased using `-q 70` in 0.06 seconds)
+![after](https://user-images.githubusercontent.com/11364402/88002736-77560080-cb18-11ea-89d6-69740a6e3ec6.jpg)
+
+
+Examples
+---
+Optimize single image   
+`tapnesh img.png`
+
+Optimize single image with 75% of quality   
+`tapnesh img.jpg -q 75`
+
+Optimize whole directory with 85% of quality    
+`tapnesh mydir -R -q 85`
+
+Optimize image and keep old file     
+`tapnesh -p img.jpg -k `
+
+Optimize whole directory and keep old files with 85% of quality    
+`tapnesh mydir -R -q 85 -k `
+
+
+Usage
+---
+```
+Usage: tapnesh [-q|--quality <arg>] [-R|--(no-)recursive] [-v|--(no-)verbose] [-k|--(no-)keep] [-h|--help] <path>
+        <path>: Path to directory for optimization
+        -q, --quality: Sets quality for optimized images, can be a value from 1 to 100. (100 means lossless optimization) (default: '80')
+        -R, --recursive, --no-recursive: Do recursive (off by default)
+        -v, --verbose, --no-verbose: Be verbose (off by default)
+        -k, --keep, --no-keep: Keep old files (off by default)
+        -h, --help: Prints help
+
+```
+
+Pre-Install
 ===
-Just run this in your terminal    
-`curl -Ss https://raw.githubusercontent.com/JafarAkhondali/Tapnesh/master/install.sh | bash`
+**You'll first need to install the dependencies**
+
+Ubuntu and other Debian based distros:   
+`sudo apt install pngquant parallel jpegoptim`
+
+Arch:   
+`sudo pacman -S pngquant parallel jpegoptim`
+
+Other distros:
+Just install `pngquant parallel jpegoptim` using your package manager.  
+
+Currently, only gnu\linux based OS are supported. 
+ 
+Installation
+===      
+
+If you trust me, just run this in your terminal       
+`curl -Ss https://raw.githubusercontent.com/JafarAkhondali/Tapnesh/master/install.sh | bash`  
+else: just copy the `tapnesh.sh` to some executable path  
+
+
 
 
 Dependencies
@@ -16,49 +78,24 @@ parallel
 jpegoptim
 ```
 
-Demo
+How does it work?
 ---
-
-Before Optimization ( Size: 4.1m )
-![Before](https://user-images.githubusercontent.com/11364402/49339239-3e67d000-f644-11e8-91b8-5985b66880d0.jpg)
-
-
-After Optimization ( `-q 45` Size: 1014kb )
-![After](https://user-images.githubusercontent.com/11364402/49339240-3e67d000-f644-11e8-9793-d609f6f1fb42.jpg)
+Tapnesh is only a wrapper to optimize images using `jpegoptim` for jpe?g and `pngquant` for png files.
+If optimizing multiple images (for example, working on a directory), Tapnesh uses `parallel` package under the hood to work optimize images per one cpu core. 
 
 
-Examples
----
-Optimize single image   
-`tapnesh -p img.png`
+## Contributing
+**Are you a user?**  
+Please suggest your requirements, ideas and bugs in issues.
 
-Optimize single image with 75% of quality   
-`tapnesh -p img.png -q 75`
+**Are you a developer?**
 
-Optimize whole directory with 85% of quality    
-`tapnesh -p mydir -R -q 85`
+1. Fork it!
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request
 
+## License
 
-Optimize whole directory and keep old files with 85% of quality    
-`tapnesh -p mydir -R -q 85 -k `
-
-Optimize image and keep old file     
-`tapnesh -p img.jpg -k `
-
-
-Options
----
-
-```
-Tapnesh is wrapper for image optimizers, It simply lets you optimize images in directory(ies) or single images in parallel
-Usage: /usr/local/bin/tapnesh [-q|--quality <arg>] [-p|--path <arg>] [-R|--(no-)recursive] [-v|--(no-)verbose] [-k|--(no-)keep] [-h
-|--help]
-        -q,--quality: Sets quailty for optimized images, can be a value from 1 to 100. (100 means loseless optimization) (default:
-
-'85')
-        -p,--path: Path to directory for optimization (default: '.')
-        -R,--recursive,--no-recursive: Do recursive (off by default)
-        -v,--verbose,--no-verbose: Be verbose (off by default)
-        -k,--keep,--no-keep: Keep old files (off by default)
-        -h,--help: Prints help
-```
+GNU General Public License v3
