@@ -208,9 +208,9 @@ if [[ -f $_arg_path ]]; then #Check if path is a file
 		OPTIONS="--strip-all -m$_arg_quality -q"
 		if [[ $_arg_keep == "on" ]]; then #Create e forced backup if they wanna keep old files
 			log "[L] backing up ..."
-			/bin/cp -f "$IMG" "$(dirname $IMG)/$PREFIX$(basename $IMG)"
+			/bin/cp -f "$IMG" "$(dirname "$IMG")/$PREFIX$(basename "$IMG")"
 		fi
-		sh -c "/usr/bin/jpegoptim $OPTIONS $IMG"
+		sh -c "/usr/bin/jpegoptim $OPTIONS '$IMG'"
 	elif [[ $MIMETYPE == "image/png" ]]; then
 		log "[L] Png file ..."
 		OPTIONS="--strip --speed 1 -f --quality $_arg_quality-$_arg_quality"
@@ -220,7 +220,7 @@ if [[ -f $_arg_path ]]; then #Check if path is a file
 		else
 			OPTIONS="$OPTIONS --output '$(dirname "$IMG")/$(basename "$IMG")' "
 		fi
-		log "[L] Compressing"
+		log "[L] Compressing ..."
 		sh -c "/usr/bin/pngquant $OPTIONS '$IMG'"
 	else
 		echo "[E] Invalid image type !"
@@ -258,7 +258,7 @@ elif [[ -d "$_arg_path" ]]; then
 	fi
 
 	echo "[*] Finding images and processing in parallel at same time..."
-	sh -c "$FIND_CMD | /usr/bin/parallel $PARALLEL_OPTIONS /usr/local/bin/tapnesh $TAPNESH_OPTIONS -p {}"
+	sh -c "$FIND_CMD | /usr/bin/parallel $PARALLEL_OPTIONS /usr/local/bin/tapnesh $TAPNESH_OPTIONS {}"
 	log "[L] Compressing directory has been finished!"
 fi
   log "[*] Done"
