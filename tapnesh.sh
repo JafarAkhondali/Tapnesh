@@ -246,7 +246,7 @@ elif [[ -d "$_arg_path" ]]; then
 	fi
 	FIND_CMD="find "$_arg_path" $FIND_OPTIONS"
 
-	PARALLEL_OPTIONS=" --no-notice --jobs 0 "
+	PARALLEL_OPTIONS=" --no-notice"
 
 	TAPNESH_OPTIONS="-q $_arg_quality"
 	if [[ $_arg_keep == "on" ]]; then
