@@ -4,7 +4,7 @@
 # Example taken from http://argbash.readthedocs.io/en/stable/example.html
 #
 # ARG_OPTIONAL_SINGLE([quality],[q],[Sets quality for optimized images, can be a value from 1 to 100. (100 means lossless optimization)],[80])
-# ARG_POSITIONAL_SINGLE([path],[Path to directory for optimization])
+# ARG_POSITIONAL_SINGLE([path],[Path to directory or image for optimization])
 # ARG_OPTIONAL_BOOLEAN([recursive],[R],[Do recursive],[off])
 # ARG_OPTIONAL_BOOLEAN([verbose],[v],[Be verbose],[off])
 # ARG_OPTIONAL_BOOLEAN([keep],[k],[Keep old files],[off])
@@ -47,7 +47,7 @@ print_help()
 {
 	printf '%s\n' "Tapnesh is wrapper for image optimizers, It simply lets you optimize images in directory(ies) or single images in parallel"
 	printf 'Usage: %s [-q|--quality <arg>] [-R|--(no-)recursive] [-v|--(no-)verbose] [-k|--(no-)keep] [-h|--help] <path>\n' "$0"
-	printf '\t%s\n' "<path>: Path to directory for optimization"
+	printf '\t%s\n' "<path>: Path to directory or image for optimization"
 	printf '\t%s\n' "-q, --quality: Sets quality for optimized images, can be a value from 1 to 100. (100 means lossless optimization) (default: '85')"
 	printf '\t%s\n' "-R, --recursive, --no-recursive: Do recursive (off by default)"
 	printf '\t%s\n' "-v, --verbose, --no-verbose: Be verbose (off by default)"
