@@ -46,14 +46,18 @@ echo "parallel    $(echo_if $(program_is_installed parallel))"
 echo "jpegoptim    $(echo_if $(program_is_installed jpegoptim))"
 
 if [[ $canInstall == "no" ]]; then
+  echo "Please install missing dependencies first"
   exit -1
 fi
 
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
+
 git clone https://github.com/JafarAkhondali/Tapnesh.git /tmp/tapnesh
-cd /tmp/tapnesh
-sudo cp ./tapnesh.sh /usr/local/bin/tapnesh -f
-sudo chmod +x /usr/local/bin/tapnesh
-cd /tmp
+cp /tmp/tapnesh/tapnesh.sh /usr/local/bin/tapnesh -f
+chmod +x /usr/local/bin/tapnesh
 rm -rf /tmp/tapnesh
 echo "Installation complete!"
 tapnesh -h
