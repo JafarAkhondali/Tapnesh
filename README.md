@@ -22,11 +22,14 @@ Optimize single image
 Optimize single image with 75% of quality   
 `tapnesh img.jpg -q 75`
 
-Optimize whole directory with 85% of quality    
-`tapnesh mydir -R -q 85`
+Optimize images in `mydir` directory    
+`tapnesh mydir`
 
-Optimize image and keep old file     
-`tapnesh -p img.jpg -k `
+Optimize images in `mydir` directory recursive
+`tapnesh mydir -R`
+
+Optimize single image and keep old file     
+`tapnesh img.jpg -k `
 
 Optimize whole directory and keep old files with 85% of quality    
 `tapnesh mydir -R -q 85 -k `
@@ -58,7 +61,7 @@ Arch:
 Other distros:
 Just install `pngquant parallel jpegoptim` using your package manager.  
 
-Currently, only gnu\linux based OS are supported. 
+Currently, only gnu\linux based distros are supported. 
  
 Installation
 ===      
