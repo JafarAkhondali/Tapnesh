@@ -199,6 +199,9 @@ if [[ -f $_arg_path ]]; then #Check if path is a file
 	FILE_FULL_PATH=$(readlink -f "$_arg_path")
 	log "[L] Processing $FILE_FULL_PATH"
 	#Find file extension base on magic number, not name since sometimes images get saved with wrong extensions
+	TIME_BEFORE=$(date +%s.%N)
+	SIZE_BEFORE=$(du "$_arg_path" -b | cut -f1)
+
 	MIMETYPE=$(file "$IMG" --mime-type -b)
 	if [[ $MIMETYPE == "image/jpeg" ]]; then
 		log "[L] jpeg file"
@@ -222,14 +225,20 @@ if [[ -f $_arg_path ]]; then #Check if path is a file
 	else
 		echo "[E] Invalid image type !"
 	fi
+	TIME_AFTER=$(date +%s.%N)
+	TOTAL_TIME=$(awk -v item=$TIME_AFTER -v total=$TIME_BEFORE 'BEGIN { printf "%.2f\n", item - total }')
 
-	log "[L] Done image"
-elif [[ -d $_arg_path ]]; then
+	SIZE_AFTER=$(du "$_arg_path" -b | cut -f1)
+	OPT_PERCENT=$(awk -v item=$SIZE_AFTER -v total=$SIZE_BEFORE 'BEGIN { printf "%.2f\n", 100 * (1-(item / total)) }')
+
+	echo "[*] File: $_arg_path"
+	echo "[*] Processing time: ${TOTAL_TIME} seconds"
+	echo "[*] Before: [$(formatHumanReadableSize $SIZE_BEFORE)] ==> After: [$(formatHumanReadableSize $SIZE_AFTER)] ($OPT_PERCENT% size decreased)"
+
+elif [[ -d "$_arg_path" ]]; then
 	#User wants to optimize a directory
 	#Check if he/she wants recursive option
 
-	TIME_BEFORE=$(date +%s.%N)
-	SIZE_BEFORE=$(du $_arg_path -s | cut -f1)
 	FIND_OPTIONS=" -iregex '.*\.\(jpg\|png\|jpeg\)$' "
 
 	if [[ $_arg_recursive == "off" ]]; then
@@ -251,18 +260,6 @@ elif [[ -d $_arg_path ]]; then
 	echo "[*] Finding images and processing in parallel at same time..."
 	sh -c "$FIND_CMD | /usr/bin/parallel $PARALLEL_OPTIONS /usr/local/bin/tapnesh $TAPNESH_OPTIONS -p {}"
 	log "[L] Compressing directory has been finished!"
-	TIME_AFTER=$(date +%s.%N)
-
-	TOTAL_TIME=$(awk -v item=$TIME_AFTER -v total=$TIME_BEFORE 'BEGIN { printf "%.3f\n", item - total }')
-
-	SIZE_AFTER=$(du $_arg_path -s | cut -f1)
-	OPT_PERCENT=$(awk -v item=$SIZE_AFTER -v total=$SIZE_BEFORE 'BEGIN { printf "%.3f\n", 100 * item / total }')
-
-
-	echo "[*] Processing time: ${TOTAL_TIME}s"
-	if [[ $_arg_keep == "off" ]]; then
-		echo "[*] Size Before:${SIZE_BEFORE}kb, After:${SIZE_AFTER}kb  ($OPT_PERCENT% Size decreasing)"
-	fi
 fi
-
+  log "[*] Done"
 # ] <-- needed because of Argbash
