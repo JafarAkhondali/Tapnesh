@@ -205,7 +205,7 @@ if [[ -f $_arg_path ]]; then #Check if path is a file
 	MIMETYPE=$(file "$IMG" --mime-type -b)
 	if [[ $MIMETYPE == "image/jpeg" ]]; then
 		log "[L] jpeg file"
-		OPTIONS="--strip-all -m$_arg_quality "
+		OPTIONS="--strip-all -m$_arg_quality -q"
 		if [[ $_arg_keep == "on" ]]; then #Create e forced backup if they wanna keep old files
 			log "[L] backing up ..."
 			/bin/cp -f "$IMG" "$(dirname $IMG)/$PREFIX$(basename $IMG)"
